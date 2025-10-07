@@ -1,0 +1,28 @@
+@startuml
+title Sequence діаграма книжкового магазину
+
+actor "Іванов І." as Ivanov
+participant "Веб-інтерфейс" as Web
+participant "Центральна система" as System
+participant "Система замовлень" as Orders
+participant "Книги" as Books
+
+Ivanov -> Web: Авторизація як покупець
+Web -> System: Запит на авторизацію
+System -> System: Перевірити дані користувача
+System --> Web: Підтвердження авторизації
+Web --> Ivanov: Доступ надано
+
+Ivanov -> Web: Створити замовлення\n(книга "Гаррі Поттер", 4 шт.)
+Web -> System: Передати запит на створення замовлення
+System -> Orders: Передати дані замовлення
+
+Orders -> Books: Перевірити наявність книги
+Books --> Orders: Книга доступна
+Orders -> Orders: Створити нове замовлення
+Orders --> System: Результат створення замовлення
+
+System --> Web: Передати результат створення замовлення
+Web --> Ivanov: Відобразити результат створення замовлення
+
+@enduml
